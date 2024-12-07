@@ -41,7 +41,9 @@ function handleDayClick(event) {
 
 // Function to clear selected days
 function clearDays() {
-    daysOfWeek.forEach(day => day.classList.remove("clicked"));
+    for (let i = 0; i < daysOfWeek.length; i++) {
+        daysOfWeek[i].classList.remove("clicked");
+    }
     dayCounter = 0;
     calculateTotal();
 }
@@ -79,12 +81,23 @@ function setFullDayRate() {
 
 function calculateTotal() {
     const totalCost = dailyRate * dayCounter;
-    calculatedCostElement.innerHTML = `${totalCost}`;
+    calculatedCostElement.innerHTML = totalCost + "";
 }
 
 
 // Event listeners
-daysOfWeek.forEach(day => day.addEventListener("click", handleDayClick));
-clearButton.addEventListener("click", clearDays);
-halfDayButton.addEventListener("click", setHalfDayRate);
-fullDayButton.addEventListener("click", setFullDayRate);
+daysOfWeek.forEach(function(day) {
+    day.addEventListener("click", handleDayClick);
+});
+
+clearButton.addEventListener("click", function() {
+    clearDays();
+});
+
+halfDayButton.addEventListener("click", function() {
+    setHalfDayRate();
+});
+
+fullDayButton.addEventListener("click", function() {
+    setFullDayRate();
+});
